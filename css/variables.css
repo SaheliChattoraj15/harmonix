@@ -1,0 +1,95 @@
+/* ==========================================================================
+   HARMONIX SOUND - MINIMAL WARM LUXURY DESIGN TOKENS
+   Inspired by Apple Music, Spotify, and High-End Studio Audiophile Platforms
+   ========================================================================== */
+
+@import url('fonts.css');
+
+:root {
+  /* Pitch Black Desktop Canvas & Panel Surfaces (Spotify/Apple Music Standard) */
+  --bg-base: #000000;
+  --bg-surface: #121212;
+  --bg-surface-elevated: #181818;
+  --bg-surface-hover: #242424;
+  --bg-surface-active: #2a2a2a;
+  --bg-surface-overlay: #282828;
+
+  /* Minimal Neutral Frosted Glass Materials */
+  --bg-glass: rgba(18, 18, 18, 0.82);
+  --bg-glass-strong: rgba(12, 12, 12, 0.95);
+  --bg-glass-card: #181818;
+  --bg-glass-hover: #242424;
+  --bg-glass-active: #2a2a2a;
+
+  /* Refined Glassmorphism Tokens */
+  --liquid-glass-bg: rgba(24, 24, 24, 0.85);
+  --liquid-glass-surface: rgba(255, 255, 255, 0.05);
+  --liquid-glass-surface-hover: rgba(255, 255, 255, 0.08);
+  --liquid-glass-border: rgba(255, 255, 255, 0.08);
+  --liquid-glass-border-hover: rgba(255, 255, 255, 0.16);
+  --liquid-glass-specular: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  --liquid-glass-specular-subtle: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  --liquid-glass-blur: blur(24px);
+  --liquid-glass-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+
+  /* Hairline Crisp Borders */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-specular: rgba(255, 255, 255, 0.18);
+  --border-focus: rgba(250, 45, 72, 0.6);
+
+  /* Minimal Warm Signature Accents (Apple Music Standard) */
+  --accent-primary: #fa2d48;       /* Apple Music Warm Coral-Rose */
+  --accent-primary-hover: #fb4760;
+  --accent-amber: #f59e0b;         /* Studio Amber */
+  --accent-amber-subtle: rgba(245, 158, 11, 0.12);
+  --accent-warm-soft: rgba(250, 45, 72, 0.12);
+  --accent-warm-border: rgba(250, 45, 72, 0.35);
+
+  /* Monochromatic Warm Fill */
+  --accent-gradient: linear-gradient(135deg, #fa2d48 0%, #e0243d 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #fb4760 0%, #fa2d48 100%);
+  --accent-gradient-warm: linear-gradient(135deg, #f59e0b 0%, #fa2d48 100%);
+
+  /* Subtle Warm Lighting */
+  --accent-glow: rgba(250, 45, 72, 0.25);
+  --accent-glow-secondary: rgba(245, 158, 11, 0.2);
+
+  /* Tier-1 High-Contrast Luxury Typography (Google Font Outfit) */
+  --font-family: 'Outfit', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-brand: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;       /* Spotify Exact Secondary Gray */
+  --text-muted: #727272;           /* Subtle metadata */
+  --text-dim: #535353;             /* Disabled / footnote */
+  --text-accent: #fa2d48;
+
+  /* Elevating Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 4px 20px var(--accent-glow);
+  --shadow-player: 0 -2px 16px rgba(0, 0, 0, 0.6);
+
+  /* Layout dimensions */
+  --sidebar-width: 280px;
+  --player-height: 84px;
+  --topbar-height: 64px;
+
+  /* Corner Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Micro Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

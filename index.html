@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harmonix | Next-Gen Music Experience</title>
+
+  <!-- Google Fonts: Outfit (Premium High-End Sans) & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <meta name="theme-color" content="#0a0b0e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- App Stylesheets -->
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/player.css" />
+  <link rel="stylesheet" href="css/visualizer.css" />
+  <link rel="stylesheet" href="css/lyrics.css" />
+</head>
+<body>
+
+  <!-- Atmospheric Canvas Background -->
+  <div class="app-background-glow"></div>
+
+  <!-- App Shell -->
+  <div id="app">
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-brand" id="brand-home-link">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+        </div>
+        <div class="brand-title-wrap">
+          <span class="brand-name">Harmonix</span>
+          <span class="brand-badge">STUDIO</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Discover</div>
+        <ul class="nav-list">
+          <li class="nav-item active" id="nav-home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+          </li>
+          <li class="nav-item" id="nav-explore">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Explore</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">My Collection</div>
+        <ul class="nav-list">
+          <li class="nav-item" id="nav-library">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>Vault</span>
+          </li>
+          <li class="nav-item" id="nav-favorites">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span>Favorites</span>
+          </li>
+          <li class="nav-item" id="nav-local-audio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>Local Audio</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Playlists Section -->
+      <div class="playlist-header-row">
+        <span class="nav-section-title" style="padding: 0; margin: 0;">Playlists</span>
+        <button class="btn-icon-subtle" id="btn-new-playlist-sidebar" title="Create Playlist">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar-playlists" id="sidebar-playlist-list">
+        <!-- Injected via JavaScript -->
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="app-main">
+
+      <!-- Header Topbar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <div class="history-nav">
+            <button class="nav-circle-btn" id="btn-nav-back" title="Go Back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div class="search-input-wrapper" id="search-input-wrapper">
+            <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" class="search-input" id="search-input" placeholder="Search songs, artists, albums..." />
+            <div class="search-typing-indicator" id="search-typing-indicator" title="Searching...">
+              <span></span><span></span><span></span>
+            </div>
+            <kbd class="search-kbd">⌘K</kbd>
+            <button class="search-clear-btn" id="search-clear-btn" title="Clear search">✕</button>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Audio Quality Badge -->
+          <div class="audio-engine-badge" id="audio-engine-badge" title="Master Audio Output: 24-bit/96kHz Studio Lossless">
+            <span class="audio-engine-dot"></span>
+            <span class="audio-engine-label">Lossless 24-Bit</span>
+          </div>
+
+          <!-- Local File Drop / Upload -->
+          <input type="file" id="local-file-input" accept="audio/*" multiple style="display: none;" />
+
+          <!-- User Authentication Section -->
+          <div class="user-auth-area" id="user-auth-area">
+            <!-- Sign In Trigger Button (When Logged Out) -->
+            <button class="btn-auth-signin" id="btn-open-auth-modal" title="Sign In or Create Account">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Sign In</span>
+            </button>
+
+            <!-- User Profile Chip (When Logged In) -->
+            <div class="user-profile-chip" id="user-profile-chip" style="display: none;">
+              <div class="user-avatar" id="user-avatar-initials">S</div>
+              <span class="user-name" id="user-display-name">User</span>
+              <button class="btn-user-signout" id="btn-user-signout" title="Sign Out">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <section class="content-viewport" id="content-viewport">
+        <!-- Rendered via js/ui.js -->
+      </section>
+    </main>
+
+    <!-- Persistent Bottom Audio Player Dock -->
+    <footer class="app-player">
+      <!-- Ambient Dock Visualizer Canvas -->
+      <canvas id="dock-visualizer" class="dock-visualizer-canvas"></canvas>
+
+      <!-- Player Left: Track Info -->
+      <div class="player-left">
+        <div class="player-thumb-wrapper" id="btn-open-stage-thumb" title="Open Fullscreen Lyrics & Stage">
+          <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80" alt="Cover" class="player-thumb-img" id="player-thumb" />
+          <div class="mini-sound-wave" id="mini-sound-wave">
+            <div class="mini-bar"></div>
+            <div class="mini-bar"></div>
+            <div class="mini-bar"></div>
+          </div>
+        </div>
+        <div class="player-meta">
+          <span class="player-track-title" id="player-track-title">Midnight City Lights</span>
+          <div class="player-sub-row">
+            <span class="player-track-artist" id="player-track-artist">Neo Drive</span>
+            <span class="player-format-pill" id="player-format-badge">Lossless</span>
+          </div>
+        </div>
+        <button class="player-like-btn" id="player-like-btn" title="Add to Favorites">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Player Middle: Playback Controls & Scrubber -->
+      <div class="player-middle">
+        <div class="playback-controls">
+          <button class="control-btn" id="control-shuffle" title="Toggle Shuffle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 3 21 3 21 8"></polyline>
+              <line x1="4" y1="20" x2="21" y2="3"></line>
+              <polyline points="21 16 21 21 16 21"></polyline>
+              <line x1="15" y1="15" x2="21" y2="21"></line>
+              <line x1="4" y1="4" x2="9" y2="9"></line>
+            </svg>
+          </button>
+
+          <button class="control-btn" id="control-prev" title="Previous Track">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="19 20 9 12 19 4 19 20"></polygon>
+              <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"></line>
+            </svg>
+          </button>
+
+          <button class="control-btn control-btn-play" id="control-play" title="Play/Pause (Spacebar)">
+            <svg id="control-play-icon" viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+
+          <button class="control-btn" id="control-next" title="Next Track">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"></line>
+            </svg>
+          </button>
+
+          <button class="control-btn" id="control-repeat" title="Repeat Track / Queue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="17 1 21 5 17 9"></polyline>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+              <polyline points="7 23 3 19 7 15"></polyline>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="timeline-wrapper">
+          <span class="time-label" id="time-current">0:00</span>
+          <div class="custom-scrubber" id="custom-scrubber">
+            <div class="scrubber-track">
+              <div class="scrubber-progress" id="scrubber-progress"></div>
+            </div>
+            <div class="scrubber-handle" id="scrubber-handle"></div>
+            <div class="scrubber-tooltip" id="scrubber-tooltip">0:00</div>
+          </div>
+          <span class="time-label" id="time-total">3:04</span>
+        </div>
+      </div>
+
+      <!-- Player Right: Equalizer, Lyrics, Queue, Volume -->
+      <div class="player-right">
+        <!-- Studio Equalizer Toggle -->
+        <button class="player-action-btn" id="btn-open-studio" title="Studio Equalizer & 3D Spatial Audio">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+        </button>
+
+        <!-- Fullscreen Synced Lyrics Stage Toggle -->
+        <button class="player-action-btn" id="btn-open-stage" title="Karaoke Synced Lyrics & Visualizer (Press L)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+        </button>
+
+        <!-- Queue Drawer Toggle -->
+        <button class="player-action-btn" id="btn-toggle-queue" title="Upcoming Queue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Picture-in-Picture Floating Mini-Player -->
+        <button class="player-action-btn" id="btn-open-pip" title="Floating Mini-Player (Press P)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <rect x="12" y="11" width="7" height="6" rx="1" fill="currentColor" fill-opacity="0.35"></rect>
+          </svg>
+        </button>
+
+        <!-- Volume Slider -->
+        <div class="volume-control-wrapper">
+          <button class="volume-btn" id="volume-btn" title="Toggle Mute (Press M)">
+            <svg id="volume-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+          <div class="volume-slider-track" id="volume-slider-track">
+            <div class="volume-bar">
+              <div class="volume-level" id="volume-level"></div>
+            </div>
+            <div class="volume-handle" id="volume-handle"></div>
+            <div class="volume-tooltip" id="volume-tooltip">75%</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Sliding Queue Drawer -->
+    <aside class="queue-drawer" id="queue-drawer">
+      <div class="queue-header">
+        <span class="queue-title">Upcoming Queue</span>
+        <button class="btn-clear-queue" id="btn-close-queue">Close</button>
+      </div>
+      <div class="queue-list" id="queue-list">
+        <!-- Injected via JavaScript -->
+      </div>
+    </aside>
+
+    <!-- Studio Equalizer Modal -->
+    <div class="modal-overlay" id="studio-modal">
+      <div class="modal-card studio-modal-card">
+        <div class="studio-header">
+          <div class="studio-title-group">
+            <h2 class="modal-title">Studio Equalizer</h2>
+            <span class="studio-badge">5-Band EQ</span>
+          </div>
+          <button class="btn-icon-subtle" id="btn-close-studio">✕</button>
+        </div>
+
+        <!-- Presets -->
+        <div class="presets-group">
+          <span class="presets-label">Sound Profiles</span>
+          <div class="preset-pills">
+            <button class="preset-btn active" data-preset="flat">Flat</button>
+            <button class="preset-btn" data-preset="bass">Bass Boost</button>
+            <button class="preset-btn" data-preset="vocal">Vocal Clarity</button>
+            <button class="preset-btn" data-preset="electronic">Electronic</button>
+            <button class="preset-btn" data-preset="acoustic">Acoustic</button>
+          </div>
+        </div>
+
+        <!-- EQ Vertical Sliders -->
+        <div class="eq-sliders-container">
+          <div class="eq-band-col">
+            <span class="eq-val-badge">0 dB</span>
+            <input type="range" class="eq-vertical-slider" data-band="0" min="-12" max="12" step="1" value="0" />
+            <span class="eq-freq-label">60Hz</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-badge">0 dB</span>
+            <input type="range" class="eq-vertical-slider" data-band="1" min="-12" max="12" step="1" value="0" />
+            <span class="eq-freq-label">250Hz</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-badge">0 dB</span>
+            <input type="range" class="eq-vertical-slider" data-band="2" min="-12" max="12" step="1" value="0" />
+            <span class="eq-freq-label">1kHz</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-badge">0 dB</span>
+            <input type="range" class="eq-vertical-slider" data-band="3" min="-12" max="12" step="1" value="0" />
+            <span class="eq-freq-label">4kHz</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-badge">0 dB</span>
+            <input type="range" class="eq-vertical-slider" data-band="4" min="-12" max="12" step="1" value="0" />
+            <span class="eq-freq-label">12kHz</span>
+          </div>
+        </div>
+
+        <!-- Spatial & Audiophile Enhancements -->
+        <div class="audio-enhancements-grid">
+          <div class="enhancement-box">
+            <div class="enhancement-header">
+              <span class="enhancement-title">Stereo Panorama</span>
+            </div>
+            <input type="range" id="spatial-panner-slider" class="panner-slider" min="-1" max="1" step="0.05" value="0" />
+            <div class="panner-labels">
+              <span>Left</span>
+              <span>Center</span>
+              <span>Right</span>
+            </div>
+          </div>
+          <div class="enhancement-box">
+            <div class="enhancement-header">
+              <span class="enhancement-title">Studio Mastering</span>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Dynamic range normalization & anti-clipping limiter.</p>
+          </div>
+          <div class="enhancement-box">
+            <div class="enhancement-header">
+              <span class="enhancement-title">DJ Smooth Crossfade</span>
+              <span class="eq-val-badge" id="crossfade-badge">0s (Off)</span>
+            </div>
+            <div class="chip-selector" id="crossfade-chips">
+              <button class="chip-btn active" data-crossfade="0">Off</button>
+              <button class="chip-btn" data-crossfade="2">2s</button>
+              <button class="chip-btn" data-crossfade="4">4s</button>
+              <button class="chip-btn" data-crossfade="6">6s</button>
+              <button class="chip-btn" data-crossfade="8">8s</button>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Seamlessly blend consecutive tracks without silence gap.</p>
+          </div>
+          <div class="enhancement-box">
+            <div class="enhancement-header">
+              <span class="enhancement-title">Audiophile Sleep Timer</span>
+              <span class="eq-val-badge" id="sleep-timer-badge">Off</span>
+            </div>
+            <div class="chip-selector" id="sleep-timer-chips">
+              <button class="chip-btn active" data-sleep="0">Off</button>
+              <button class="chip-btn" data-sleep="15">15m</button>
+              <button class="chip-btn" data-sleep="30">30m</button>
+              <button class="chip-btn" data-sleep="45">45m</button>
+              <button class="chip-btn" data-sleep="60">60m</button>
+              <button class="chip-btn" data-sleep="end">Song</button>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Gentle 30-second exponential volume fade-out before stopping.</p>
+          </div>
+          <div class="enhancement-box" id="output-device-box" style="grid-column: 1 / -1;">
+            <div class="enhancement-header">
+              <span class="enhancement-title">Audio Output Device</span>
+              <span class="eq-val-badge" id="output-device-status">System Default</span>
+            </div>
+            <select class="device-select" id="audio-output-select" aria-label="Audio Output Device">
+              <option value="default">Default System Audio Output</option>
+            </select>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Stream directly to External DACs, Studio Monitors, or AirPods.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Immersive Stage & Synced Lyrics -->
+    <div class="immersive-stage" id="immersive-stage">
+      <div class="stage-backdrop">
+        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80" alt="Backdrop" class="stage-backdrop-img" id="stage-backdrop-img" />
+        <div class="stage-backdrop-overlay"></div>
+      </div>
+
+      <header class="stage-topbar">
+        <div class="stage-brand-badge">
+          <span class="brand-name" style="font-size: 16px; font-weight: 700;">Harmonix</span>
+        </div>
+
+        <div class="stage-mode-chips">
+          <button class="stage-mode-btn active" data-mode="bars">Equalizer Bars</button>
+          <button class="stage-mode-btn" data-mode="wave">Oscilloscope</button>
+          <button class="stage-mode-btn" data-mode="radial">Radial Pulsar</button>
+        </div>
+
+        <div class="stage-topbar-actions" style="display: flex; align-items: center; gap: 10px;">
+          <button class="stage-action-btn" id="stage-sing-btn" title="Sing Mode: Apple Music Vocal Suppressor">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            <span class="btn-label">Sing</span>
+          </button>
+
+          <button class="stage-action-btn" id="stage-share-btn" title="Share Now Playing">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            <span class="btn-label">Share</span>
+          </button>
+
+          <button class="stage-close-btn" id="stage-close-btn" title="Exit Fullscreen (Escape)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="stage-content">
+        <!-- Visual Column -->
+        <div class="stage-visual-col">
+          <div class="stage-cover-canvas-box">
+            <canvas id="stage-visualizer" class="stage-visualizer-canvas"></canvas>
+            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80" alt="Cover" class="stage-cover-art" id="stage-cover-art" />
+          </div>
+          <div class="stage-meta">
+            <h2 class="stage-title" id="stage-track-title">Midnight City Lights</h2>
+            <p class="stage-artist" id="stage-track-artist">Neo Drive</p>
+          </div>
+        </div>
+
+        <!-- Lyrics Column -->
+        <div class="stage-lyrics-col">
+          <div class="lyrics-container" id="lyrics-container">
+            <!-- Injected via js/lyrics.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drag & Drop Audio File Overlay -->
+    <div class="file-drop-overlay" id="file-drop-overlay">
+      <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="17 8 12 3 7 8"></polyline>
+        <line x1="12" y1="3" x2="12" y2="15"></line>
+      </svg>
+      <h2 class="drop-title">Drop your audio files here</h2>
+      <p class="drop-subtitle">Supports MP3, WAV, FLAC, M4A, and OGG with real-time visualizers</p>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div class="modal-overlay" id="create-playlist-modal">
+      <div class="modal-card">
+        <h2 class="modal-title">Create New Playlist</h2>
+        <input type="text" class="modal-input" id="playlist-name-input" placeholder="Playlist title (e.g. Midnight Cyber Vibes)" />
+        <div class="modal-actions">
+          <button class="btn-secondary" id="btn-cancel-playlist">Cancel</button>
+          <button class="btn-primary" id="btn-confirm-playlist">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Authentication Modal (Google, Email/Password, Phone Number) -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal-card auth-modal-card">
+        <div class="auth-modal-header">
+          <div class="sidebar-brand" style="margin-bottom: 0; padding-left: 0;">
+            <div class="brand-icon" style="width: 32px; height: 32px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/>
+              </svg>
+            </div>
+            <span class="brand-name" style="font-size: 18px;">HARMONIX</span>
+          </div>
+          <button class="btn-icon-subtle" id="btn-close-auth">✕</button>
+        </div>
+
+        <div class="auth-title-section">
+          <h2 class="auth-modal-heading" id="auth-modal-heading">Sign in to Harmonix</h2>
+          <p class="auth-modal-subheading" id="auth-modal-subheading">Unlock high-fidelity sound, custom playlists & personal vaults.</p>
+        </div>
+
+        <!-- Google Sign-In Button -->
+        <button class="btn-google-auth" id="btn-google-auth" type="button">
+          <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.8C6.5 7.1 9 5 12 5z"/>
+            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+            <path fill="#FBBC05" d="M5.6 14.9c-.3-.8-.4-1.8-.4-2.9 0-1 .1-2 .4-2.9L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.8z"/>
+            <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.1-6.4-5.1L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div class="auth-divider">
+          <span>or continue with</span>
+        </div>
+
+        <!-- Method Switcher: Email vs Phone -->
+        <div class="auth-method-tabs">
+          <button class="auth-method-tab active" id="tab-auth-email" type="button">Email & Password</button>
+          <button class="auth-method-tab" id="tab-auth-phone" type="button">Phone Number</button>
+        </div>
+
+        <!-- Email & Password Form -->
+        <form class="auth-form" id="form-auth-email">
+          <div class="form-group">
+            <label class="form-label" for="auth-email-input">Email Address</label>
+            <input type="email" class="modal-input" id="auth-email-input" placeholder="name@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="auth-password-input">Password</label>
+              <span class="form-link" id="auth-forgot-link">Forgot password?</span>
+            </div>
+            <input type="password" class="modal-input" id="auth-password-input" placeholder="••••••••" required />
+          </div>
+
+          <button type="submit" class="btn-primary auth-submit-btn" id="btn-email-submit">
+            <span>Sign In</span>
+          </button>
+        </form>
+
+        <!-- Phone Number Form -->
+        <form class="auth-form" id="form-auth-phone" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="auth-phone-input">Phone Number</label>
+            <div class="phone-input-row">
+              <select class="modal-input phone-country-select" id="auth-country-code">
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+91" selected>🇮🇳 +91</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+81">🇯🇵 +81</option>
+              </select>
+              <input type="tel" class="modal-input phone-number-input" id="auth-phone-input" placeholder="98765 43210" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-row">
+              <label class="form-label" for="auth-phone-password">Password / OTP</label>
+            </div>
+            <input type="password" class="modal-input" id="auth-phone-password" placeholder="••••••" required />
+          </div>
+
+          <button type="submit" class="btn-primary auth-submit-btn" id="btn-phone-submit">
+            <span>Sign In with Phone</span>
+          </button>
+        </form>
+
+        <div class="auth-footer-toggle">
+          <span id="auth-toggle-prompt">Don't have an account?</span>
+          <button class="btn-auth-switch" id="btn-toggle-signup" type="button">Sign Up</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audiophile Lossless Telemetry HUD Popover -->
+    <div class="lossless-hud-overlay" id="lossless-hud-overlay">
+      <div class="lossless-hud-card">
+        <div class="lossless-hud-header">
+          <div class="lossless-hud-title-row">
+            <div class="lossless-hud-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="lossless-hud-title">Studio Audio Pipeline</div>
+              <span style="font-size: 11px; color: var(--text-muted);">Hi-Res Lossless Master Telemetry</span>
+            </div>
+          </div>
+          <button class="lossless-hud-close" id="btn-close-lossless-hud" title="Close">✕</button>
+        </div>
+
+        <div class="lossless-os-badge" id="lossless-os-badge">
+          <span class="lossless-os-dot"></span>
+          <span id="lossless-os-text">Detecting platform audio subsystem...</span>
+        </div>
+
+        <div class="lossless-specs-grid">
+          <div class="lossless-spec-cell">
+            <span class="lossless-spec-label">Encoding Format</span>
+            <span class="lossless-spec-value" id="hud-spec-codec">16-Bit PCM WAV</span>
+          </div>
+          <div class="lossless-spec-cell">
+            <span class="lossless-spec-label">Sample Rate</span>
+            <span class="lossless-spec-value" id="hud-spec-rate">44,100 Hz</span>
+          </div>
+          <div class="lossless-spec-cell">
+            <span class="lossless-spec-label">Bitrate</span>
+            <span class="lossless-spec-value" id="hud-spec-bitrate">1,411 kbps</span>
+          </div>
+          <div class="lossless-spec-cell">
+            <span class="lossless-spec-label">Channels & Spatial</span>
+            <span class="lossless-spec-value" id="hud-spec-channels">2.0 Studio Stereo</span>
+          </div>
+        </div>
+
+        <div class="lossless-meter-container">
+          <div class="lossless-meter-row">
+            <span>DYNAMIC RANGE (LUFS PEAK)</span>
+            <span id="hud-spec-lufs">-0.8 dBFS</span>
+          </div>
+          <div class="lossless-meter-track">
+            <div class="lossless-meter-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Track Context Menu (•••) -->
+    <div class="track-context-menu" id="track-context-menu">
+      <button class="context-menu-item" id="ctx-play-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <polygon points="5 4 15 12 5 20 5 4"></polygon>
+          <line x1="19" y1="5" x2="19" y2="19"></line>
+        </svg>
+        <span>Play Next</span>
+      </button>
+      <button class="context-menu-item" id="ctx-add-queue">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        <span>Add to Queue</span>
+      </button>
+      <div class="context-menu-divider"></div>
+      <button class="context-menu-item" id="ctx-toggle-fav">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <span id="ctx-fav-label">Favorite</span>
+      </button>
+      <button class="context-menu-item" id="ctx-share-track">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>Share Track</span>
+      </button>
+      <button class="context-menu-item" id="ctx-show-specs">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Audio Telemetry</span>
+      </button>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toast-container"></div>
+  </div>
+
+  <!-- Main JavaScript App Entry (Universal Browser & Safari Compatibility) -->
+  <script src="js/app.bundle.js"></script>
+</body>
+</html>
